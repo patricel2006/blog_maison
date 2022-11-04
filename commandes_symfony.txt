@@ -1,0 +1,63 @@
+// création database :
+symfony console doctrine:database:create
+
+// création controller :
+symfony console make:controller NomController
+
+// étapes de création d'un projet :
+- importer bootstrap
+- modifier base.html.twig en ajoutant script bootstrap css + js
+- créer le controller home
+- modifier home.html.twig dans templates
+- ajouter la page d'accueil : dans base.html.twig je fais un include 'include/_navbar.html.twig'
+dans la balise body, pas dans le bloc
+- modifier la route du HomeController et mettre "/" comme route
+
+----------------------------------------création du système d'authentification---------------
+- symfony console make:user // création utilisateur
+
+- symfony console make:auth // création authentification
+- symfony console make:registration-form // création registration form
+
+-----------------------------------modifier la navbar avec les liens----------------
+-href="{{ path('app_home') }}">Home
+href="{{ path('app_login') }}">Login 
+href="{{ path('app_logout') }}">Logout 
+href="{{ path('app_register') }}">Register 
+
+---------------------------mettre une logique sur l'affichage des boutons-------------------
+dans le fichier config/packages/security.yaml
+            logout:
+                path: app_logout
+                # where to redirect after logout
+                target: app_home
+
+dans src/security/AppCustomAuthentication dans la fonction : onAuthenticationSucces décommenter le return pour indiquer ou rediriger après le login 'app_home'
+
+----------------------navbar de base-----------------------------------
+//si l'utilisateur est connecté
+				{% if app.user %}
+					<li class="nav-item">
+						<a class="nav-link" href="{{ path('app_logout') }}">Logout</a>
+					</li>
+                    // sinon
+				{% else %}
+
+
+					<li class="nav-item">
+						<a class="nav-link" href="{{ path('app_login') }}">Login</a>
+
+					</li>
+
+					<li class="nav-item">
+						<a class="nav-link" href="{{ path('app_register') }}">Register</a>
+
+					</li>
+
+				{% endif %}
+
+                -----------------creation entity Category--------------------
+                symfony console make:entity Category
+
+
+

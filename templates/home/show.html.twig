@@ -1,0 +1,35 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Fiche Article
+{% endblock %}
+
+{% block body %}
+	<div class="col-6">
+		<h1 class="text-center">Fiche Article</h1>
+		<br><br>
+
+		<div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
+			<div class="col p-4 d-flex flex-column position-static">
+				<strong class="d-inline-block mb-2 text-success">{{ article.titre }}</strong>
+				<h3 class="mb-0">{{ article.titre }}</h3>
+				<div class="mb-1 text-muted">Nov 11</div>
+				<p class="mb-auto">{{ article.contenu }}</p>
+				<a href="{{ path('user_article_show' , { 'id' : article.id }) }}" class="stretched-link">Lire la suite
+				</a>
+				<p>{{ article.auteur.email }}</p>
+				<p>Date de création :
+					{{ article.createdAt ? article.createdAt|date('Y-m-d H:i:s') : '' }}</p>
+			</div>
+			<div class="col-auto d-none d-lg-block">
+				<img src="{{ asset('photos/' ~ article.photo) }}" alt="">
+			</div>
+		</div>
+	</div>
+
+	{# affichage de l'image #}
+	{% for picture in article.pictures %}
+		<p><img src="{{ asset('photos/' ~ picture.name) }}" alt="" style="width:100px"></p>
+	{% endfor %}
+
+
+{% endblock %}
